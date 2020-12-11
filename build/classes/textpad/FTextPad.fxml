@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Author: Ankit Kumar Mistry
+-->
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.input.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="686.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="textpad.TextPad">
+    <stylesheets>
+        <URL value="@textpad.css" />
+    </stylesheets>
+   <children>
+      <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="1074.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu text="_File">
+            <items>
+                  <MenuItem onAction="#newFile" text="_New">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem onAction="#open" text="_Open">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="sav" onAction="#save" text="_Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem onAction="#saveAs" text="S_ave As">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <CheckMenuItem fx:id="asave" mnemonicParsing="false" text="Auto Save" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem onAction="#close" text="_Close">
+                     <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="F4" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            </items>
+          </Menu>
+          <Menu text="_Edit">
+               <items>
+                  <MenuItem fx:id="undoitem" onAction="#undo" text="_Undo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem fx:id="redoitem" onAction="#redo" text="_Redo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem onAction="#cut" text="_Cut">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="X" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem onAction="#copy" text="C_opy">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem onAction="#paste" text="_Paste">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="V" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem onAction="#deselect" text="_Deselect">
+                      <accelerator>
+                          <KeyCodeCombination alt="UP" code="ESCAPE" control="UP" meta="UP" shift="UP" shortcut="UP" /> 
+                      </accelerator>
+                  </MenuItem>
+                  <MenuItem onAction="#selectAll" text="Se_lect All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+          </Menu>
+            <Menu text="F_ormat">
+              <items>
+                <MenuItem onAction="#openFontDialog" text="_Font">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <CheckMenuItem fx:id="wrap" onAction="#wordWrap" text="_Word Wrap" />
+              </items>
+            </Menu>
+          <Menu text="_Help">
+            <items>
+              <MenuItem onAction="#about" text="_About TextPad">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextArea fx:id="text" layoutY="32.0" prefHeight="656.0" prefWidth="1074.0" styleClass="text1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font>
+      </TextArea>
+      <AnchorPane id="AnchorPane" fx:id="fontDialog" layoutX="586.0" layoutY="32.0" prefHeight="654.0" prefWidth="488.0" style="-fx-background-color: #eaedef;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="32.0">
+         <children>
+            <Label layoutX="61.0" layoutY="49.0" text="Color" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="49.0">
+               <font>
+                  <Font name="Segoe UI" size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="65.0" layoutY="109.0" text="Font" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="109.0">
+               <font>
+                  <Font name="Segoe UI" size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="65.0" layoutY="172.0" text="Size" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="172.0">
+               <font>
+                  <Font name="Segoe UI" size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="63.0" layoutY="235.0" text="Style" AnchorPane.leftAnchor="63.0" AnchorPane.topAnchor="235.0">
+               <font>
+                  <Font name="Segoe UI" size="31.0" />
+               </font>
+            </Label>
+            <ColorPicker fx:id="pick" layoutX="210.0" layoutY="53.0" onAction="#fontApply" prefHeight="33.0" prefWidth="150.0" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="53.0" />
+            <ComboBox fx:id="font" layoutX="210.0" layoutY="113.0" onAction="#fontApply" prefWidth="150.0" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="113.0" />
+            <Slider fx:id="sl" blockIncrement="2.0" layoutX="210.0" layoutY="182.0" majorTickUnit="10.0" max="96.0" min="1.0" minorTickCount="2" prefHeight="18.0" prefWidth="150.0" value="15.0" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="182.0" />
+            <ToggleButton fx:id="bd" layoutX="210.0" layoutY="239.0" mnemonicParsing="false" onAction="#fontApply" text="B" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="239.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="it" layoutX="241.0" layoutY="239.0" mnemonicParsing="false" onAction="#fontApply" text="I" AnchorPane.leftAnchor="241.0" AnchorPane.topAnchor="239.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </ToggleButton>
+            <ToggleButton fx:id="ul" layoutX="269.0" layoutY="239.0" mnemonicParsing="false" onAction="#fontApply" text="U" underline="true" AnchorPane.leftAnchor="269.0" AnchorPane.topAnchor="239.0">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </ToggleButton>
+            <Pane fx:id="colorView" layoutX="371.0" layoutY="50.0" prefHeight="66.0" prefWidth="74.0" style="-fx-background-color: #000;" AnchorPane.leftAnchor="371.0" AnchorPane.topAnchor="50.0" />
+            <Label fx:id="size" layoutX="378.0" layoutY="181.0" text="15" AnchorPane.leftAnchor="378.0" AnchorPane.topAnchor="181.0" />
+            <Button layoutX="1031.0" layoutY="14.0" mnemonicParsing="false" onAction="#openFontDialog" styleClass="danger" text="Close" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+            <Button layoutX="418.0" layoutY="608.0" mnemonicParsing="false" onAction="#fontApply" styleClass="success" text="Apply">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="AnchorPane" fx:id="about" layoutX="237.0" layoutY="140.0" prefHeight="406.0" prefWidth="600.0" style="-fx-background-color: #eaedef; -fx-background-radius: 30;" visible="false">
+         <children>
+            <Label layoutX="138.0" layoutY="56.0" text="TextPad" AnchorPane.leftAnchor="138.0" AnchorPane.topAnchor="56.0">
+               <font>
+                  <Font name="Segoe UI" size="30.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="183.0" fitWidth="191.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="4.0">
+               <image>
+                  <Image url="@TextPad.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="138.0" layoutY="93.0" text="This is a simple text editor" AnchorPane.leftAnchor="138.0" AnchorPane.topAnchor="93.0">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="85.0" layoutY="177.0" text="Version" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="177.0">
+               <font>
+                  <Font name="Segoe UI" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="235.0" layoutY="177.0" text="1.0" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="177.0">
+               <font>
+                  <Font name="Segoe UI" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="85.0" layoutY="221.0" text="Author" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="221.0">
+               <font>
+                  <Font name="Segoe UI" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="235.0" layoutY="221.0" text="Ankit Kumar Mistry" AnchorPane.leftAnchor="235.0" AnchorPane.topAnchor="221.0">
+               <font>
+                  <Font name="Segoe UI" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="376.0" text="Licensed with Apache License 2.0. Made with Java" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="14.0">
+               <font>
+                  <Font name="Segoe UI" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="509.0" layoutY="4.0" text="11-10-2020" textAlignment="RIGHT" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="4.0" />
+            <Button layoutX="530.0" layoutY="360.0" mnemonicParsing="false" onAction="#close" styleClass="danger" text="Close" />
+         </children>
+         <stylesheets>
+            <URL value="@textpad.css" />
+         </stylesheets>
+      </AnchorPane>
+   </children>
+</AnchorPane>
